@@ -124,8 +124,12 @@ function getCountDaysInMonth(month, year) {
  * '2024-02-01T00:00:00.000Z', '2024-02-02T00:00:00.000Z'  => 2
  * '2024-02-01T00:00:00.000Z', '2024-02-12T00:00:00.000Z'  => 12
  */
-function getCountDaysOnPeriod(/* dateStart, dateEnd */) {
-  throw new Error('Not implemented');
+function getCountDaysOnPeriod(dateStart, dateEnd) {
+  const MS_IN_DAY = 1000 * 60 * 60 * 24;
+  const startDate = new Date(dateStart);
+  const endDate = new Date(dateEnd);
+  const different = Math.abs(endDate - startDate);
+  return Math.trunc(different / MS_IN_DAY) + 1;
 }
 
 /**
@@ -145,8 +149,11 @@ function getCountDaysOnPeriod(/* dateStart, dateEnd */) {
  * '2024-02-02', { start: '2024-02-02', end: '2024-03-02' } => true
  * '2024-02-10', { start: '2024-02-02', end: '2024-03-02' } => true
  */
-function isDateInPeriod(/* date, period */) {
-  throw new Error('Not implemented');
+function isDateInPeriod(date, period) {
+  const checkingDate = new Date(date);
+  const periodStart = new Date(period.start);
+  const periodEnd = new Date(period.end);
+  return checkingDate >= periodStart && checkingDate <= periodEnd;
 }
 
 /**
@@ -160,8 +167,9 @@ function isDateInPeriod(/* date, period */) {
  * '1999-01-05T02:20:00.000Z' => '1/5/1999, 2:20:00 AM'
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
-function formatDate(/* date */) {
-  throw new Error('Not implemented');
+function formatDate(d) {
+  const date = new Date(d);
+  return date.toLocaleString('en-US', { timeZone: 'UTC' });
 }
 
 /**
