@@ -217,7 +217,6 @@ function getWeekNumberByDate(date) {
 
   const obtainedDate = new Date(date.valueOf() - timezoneOffset);
   const firstDayOfYear = new Date(`${obtainedDate.getFullYear()}-01-01`);
-
   const differentDays = (obtainedDate - firstDayOfYear) / msInDay;
   const shift =
     firstDayOfYear.getDay() === SUNDAY
@@ -238,8 +237,34 @@ function getWeekNumberByDate(date) {
  * Date(2024, 0, 13) => Date(2024, 8, 13)
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
-function getNextFridayThe13th(/* date */) {
-  throw new Error('Not implemented');
+function getNextFridayThe13th(date) {
+  const daysMap = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  const lastDayOfEarth = 3000;
+  let year = date.getFullYear();
+  let month = date.getMonth();
+  const day = 13;
+
+  while (year < lastDayOfEarth) {
+    const whatDay = new Date(year, month, day);
+    const d = whatDay.getDay();
+    if (daysMap[d] === 'Friday') return new Date(year, month, day);
+    month += 1;
+    if (month > 11) {
+      month = 0;
+      year += 1;
+    }
+  }
+
+  return new Date(year, month, day);
 }
 
 /**
